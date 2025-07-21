@@ -1,6 +1,6 @@
 # AstraSync Python SDK
 
-[![Version](https://img.shields.io/badge/version-0.2.1-blue.svg)](https://github.com/AstraSyncAI/astrasync-python-sdk)
+[![Version](https://img.shields.io/badge/version-0.2.5-blue.svg)](https://github.com/AstraSyncAI/astrasync-python-sdk)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](LICENSE)
 
@@ -39,6 +39,27 @@ print(f"Trust Score: {result['trustScore']}")  # API-assigned score
 - **Developer Preview**: Get early access and shape the future
 
 ## 🤖 Supported Agent Formats
+
+Currently supporting 17+ agent frameworks with auto-detection:
+- Google ADK (Agent Development Kit)
+- OpenAI Assistants API
+- MCP (Model Context Protocol)
+- AutoGPT
+- Salesforce Agentforce
+- LangChain
+- CrewAI
+- n8n Workflow Agents
+- AgentStack (by AgentOps)
+- Microsoft AutoGen
+- Microsoft Semantic Kernel
+- OpenAI Swarm
+- Meta Llama Stack
+- LlamaIndex Agents
+- BabyAGI
+- Mistral Agents (Le Chat)
+- Amazon Bedrock Agents
+- Letta (MemGPT)
+- IBM ACP
 
 ### Google ADK (Agent Development Kit)
 ```python
@@ -264,9 +285,146 @@ swarm_config = {
 result = client.register(swarm_config)
 ```
 
+### Microsoft AutoGen
+```python
+# AutoGen multi-agent configuration
+autogen_config = {
+    "name": "Research Team",
+    "agents": [
+        {"name": "Coder", "system_message": "Write clean code", "llm_config": {"model": "gpt-4"}},
+        {"name": "Reviewer", "system_message": "Review code quality", "llm_config": {"model": "gpt-4"}}
+    ],
+    "code_execution": True,
+    "max_round": 10
+}
+
+result = client.register(autogen_config)
+```
+
+### Microsoft Semantic Kernel
+```python
+# Semantic Kernel agent with plugins
+sk_agent = {
+    "name": "Enterprise Assistant",
+    "kernel": {"model": "gpt-4"},
+    "plugins": {
+        "WebSearchPlugin": {"functions": ["search", "scrape"]},
+        "MathPlugin": {"functions": ["calculate", "solve"]}
+    },
+    "memory": {"type": "semantic"},
+    "planner": {"type": "sequential"}
+}
+
+result = client.register(sk_agent)
+```
+
+### OpenAI Swarm
+```python
+# Swarm agent with handoffs
+swarm_agent = {
+    "name": "Customer Service",
+    "instructions": "Help customers professionally",
+    "model": "gpt-4",
+    "functions": ["check_order", "process_refund"],
+    "handoffs": ["technical_support", "billing"]
+}
+
+result = client.register(swarm_agent)
+```
+
+### Meta Llama Stack
+```python
+# Llama Stack agent with tools
+llamastack_agent = {
+    "name": "Code Assistant",
+    "agent_config": {
+        "model": "llama-3.1-70b",
+        "system_prompt": "You are an expert programmer"
+    },
+    "tools": ["code_interpreter", "web_search"],
+    "safety": {"shields": ["prompt_guard", "llama_guard"]}
+}
+
+result = client.register(llamastack_agent)
+```
+
+### LlamaIndex Agents
+```python
+# LlamaIndex multi-agent service
+llamaindex_agent = {
+    "name": "Query Processor",
+    "agent_service": {
+        "service_name": "query_service",
+        "host": "localhost",
+        "port": 8080
+    },
+    "orchestrator": {
+        "agents": ["research", "analysis", "synthesis"]
+    },
+    "message_queue": {"type": "rabbitmq"}
+}
+
+result = client.register(llamaindex_agent)
+```
+
+### BabyAGI
+```python
+# BabyAGI autonomous agent
+babyagi_agent = {
+    "name": "Research AGI",
+    "objective": "Research and summarize AI developments",
+    "initial_task": "Search for latest AI papers",
+    "vectorstore": {"type": "pinecone"},
+    "max_iterations": 10
+}
+
+result = client.register(babyagi_agent)
+```
+
+### Mistral Agents
+```python
+# Mistral AI agent with Le Chat
+mistral_agent = {
+    "name": "Assistant",
+    "model": "mistral-large",
+    "system_prompt": "You are a helpful assistant",
+    "functions": ["search", "calculate", "analyze"],
+    "json_mode": True,
+    "safe_mode": True
+}
+
+result = client.register(mistral_agent)
+```
+
+### Amazon Bedrock Agents
+```python
+# Bedrock managed agent
+bedrock_agent = {
+    "agent_name": "Enterprise Bot",
+    "foundation_model": "anthropic.claude-v2",
+    "instruction": "Help users with enterprise tasks",
+    "action_groups": [
+        {
+            "name": "OrderManagement",
+            "api_schema": {"source": "s3://schemas/orders.json"},
+            "action_group_executor": {"lambda": "arn:aws:lambda:..."}
+        }
+    ],
+    "knowledge_bases": [
+        {"id": "KB-001", "description": "Product documentation"}
+    ],
+    "guardrails": {"guardrail_id": "GR-001"}
+}
+
+result = client.register(bedrock_agent)
+```
+
 ### More Frameworks
 - **Letta (MemGPT)**: Memory-augmented agents
 - **IBM ACP**: Agent Communication Protocol
+- **SuperAGI**: Enterprise autonomous agent framework (coming soon)
+- **Vertex AI**: Google Cloud AI agents (coming soon)
+- **Dify**: Visual AI workflow builder (coming soon)
 
 ## 📊 Registration Response
 
@@ -386,7 +544,20 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## 📝 Changelog
 
-### v0.2.4 (Latest)
+### v0.2.5 (Latest)
+- **NEW**: Added 8 major AI agent frameworks:
+  - Microsoft AutoGen (multi-agent conversations with code execution)
+  - Microsoft Semantic Kernel (enterprise AI orchestration with plugins)
+  - OpenAI Swarm (lightweight agent orchestration with handoffs)
+  - Meta Llama Stack (Llama agents with safety shields)
+  - LlamaIndex Agents (distributed multi-agent microservices)
+  - BabyAGI (autonomous task management and prioritization)
+  - Mistral Agents (Le Chat with JSON mode and function calling)
+  - Amazon Bedrock Agents (AWS managed agents with RAG)
+- **FIXED**: Dictionary detection issue affecting all adapters
+- **IMPROVED**: Trust scoring with framework-specific bonuses
+- **ADDED**: Comprehensive test coverage for all new frameworks
+### v0.2.4
 - **NEW**: Added n8n workflow automation support
 - **NEW**: Added AgentStack (by AgentOps) support
 - **NEW**: Support for n8n AI agent nodes and workflows

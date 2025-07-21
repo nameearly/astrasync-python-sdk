@@ -54,3 +54,7 @@ Thumbs.db
 *.log
 .env
 test.json
+debug_*.py
+test_*.py
+create_*.py
+astrasync-test/

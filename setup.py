@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="astrasyncai",
-    version="0.2.1",
+    version="0.2.5",
     author="AstraSync AI",
     author_email="developers@astrasync.ai",
     description="Universal AI agent registration for blockchain compliance",
