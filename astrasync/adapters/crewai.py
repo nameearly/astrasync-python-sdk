@@ -195,7 +195,7 @@ def normalize_agent_data(agent_data: Any) -> Dict[str, Any]:
     if normalized['metadata'].get('role'):
         trust_score += 3  # Bonus for defined role
         
-    normalized['trustScore'] = min(trust_score, 95)  # Cap at 95 for preview
+    normalized['trustScore'] = min(trust_score, 100)  # Production scoring
     
     return normalized
 

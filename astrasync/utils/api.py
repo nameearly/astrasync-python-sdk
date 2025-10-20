@@ -6,7 +6,7 @@ import json
 from typing import Dict, Any
 
 
-API_BASE_URL = "https://astrasync-api-production.up.railway.app/v1"
+API_BASE_URL = "https://astrasync.ai/api/v1"
 
 
 def register_agent(agent_data: Dict[str, Any], email: str) -> Dict[str, Any]:
@@ -28,7 +28,7 @@ def register_agent(agent_data: Dict[str, Any], email: str) -> Dict[str, Any]:
     
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "AstraSync-Python-SDK/0.2.1"
+        "User-Agent": "AstraSync-Python-SDK/1.0.0"
     }
     
     try:
@@ -51,7 +51,7 @@ def verify_agent(agent_id: str) -> Dict[str, Any]:
     endpoint = f"{API_BASE_URL}/verify/{agent_id}"
     
     headers = {
-        "User-Agent": "AstraSync-Python-SDK/0.2.1"
+        "User-Agent": "AstraSync-Python-SDK/1.0.0"
     }
     
     try:

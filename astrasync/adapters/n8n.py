@@ -165,7 +165,7 @@ def normalize_agent_data(agent_data: Any) -> Dict[str, Any]:
     if 'output_parsing:enabled' in normalized['capabilities']:
         trust_score += 3  # Bonus for structured outputs
         
-    normalized['trustScore'] = min(trust_score, 95)  # Cap at 95 for preview
+    normalized['trustScore'] = min(trust_score, 100)  # Production scoring
     
     return normalized
 

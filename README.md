@@ -1,6 +1,6 @@
 # AstraSync Python SDK
 
-[![Version](https://img.shields.io/badge/version-0.2.5-blue.svg)](https://github.com/AstraSyncAI/astrasync-python-sdk)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/AstraSyncAI/astrasync-python-sdk)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](LICENSE)
 
@@ -36,7 +36,7 @@ print(f"Trust Score: {result['trustScore']}")  # API-assigned score
 - **Blockchain Registration**: Immutable record of agent identity (coming soon)
 - **Trust Scoring**: API-assigned trust scores for verified agents
 - **Simple Integration**: One SDK for all major AI agent frameworks
-- **Developer Preview**: Get early access and shape the future
+- **Production**: Get early access and shape the future
 
 ## 🤖 Supported Agent Formats
 
@@ -443,7 +443,7 @@ All registrations return a consistent response format:
 }
 ```
 
-**Note**: During developer preview, all agents receive a temporary ID (`TEMP-XXX`) and placeholder trust score (`TEMP-95%`). Production IDs and dynamic trust scores will be assigned after account creation.
+**Note**: During production, all agents receive a temporary ID (`TEMP-XXX`) and placeholder trust score (`TEMP-95%`). Production IDs and dynamic trust scores will be assigned after account creation.
 
 ## 🔍 Agent Detection
 
@@ -520,7 +520,7 @@ pip install -e .
 - **Developer Friendly**: Simple API, comprehensive docs
 - **Future Proof**: Preparing for the autonomous agent economy
 
-## 🚧 Developer Preview Status
+## 🚧 Production Status
 
 This SDK is in active development. Current limitations:
 

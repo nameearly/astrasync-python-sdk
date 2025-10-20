@@ -40,4 +40,4 @@ def calculate_trust_score(agent_data: Dict[str, Any]) -> int:
         if 'session_service' in str(agent_data):
             score += 2
     
-    return min(score, 95)  # Cap at 95 for preview
+    return min(score, 100)  # Production scoring

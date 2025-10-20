@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="astrasyncai",
-    version="0.2.5",
+    version="1.0.0",
     author="AstraSync AI",
     author_email="developers@astrasync.ai",
     description="Universal AI agent registration for blockchain compliance",
@@ -14,7 +14,7 @@ setup(
     url="https://github.com/AstraSyncAI/astrasync-python-sdk",
     packages=find_packages(),
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: MIT License",

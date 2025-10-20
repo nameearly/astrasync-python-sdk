@@ -177,7 +177,7 @@ def normalize_agent_data(agent_data: Any) -> Dict[str, Any]:
     if 'iam:configured' in normalized['capabilities']:
         trust_score += 2  # Bonus for proper IAM setup
         
-    normalized['trustScore'] = min(trust_score, 95)  # Cap at 95 for preview
+    normalized['trustScore'] = min(trust_score, 100)  # Production scoring
     
     return normalized
 

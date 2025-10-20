@@ -134,7 +134,7 @@ def normalize_agent_data(agent_data: Any) -> Dict[str, Any]:
     if normalized['metadata'].get('dynamicTemperature'):
         trust_score += 2  # Bonus for advanced features
         
-    normalized['trustScore'] = min(trust_score, 95)  # Cap at 95 for preview
+    normalized['trustScore'] = min(trust_score, 100)  # Production scoring
     
     return normalized
 

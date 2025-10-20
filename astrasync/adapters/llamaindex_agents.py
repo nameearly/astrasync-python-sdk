@@ -160,7 +160,7 @@ def normalize_agent_data(agent_data: Any) -> Dict[str, Any]:
     if normalized['metadata'].get('agentCount', 0) > 2:
         trust_score += 5  # Bonus for multi-agent system
         
-    normalized['trustScore'] = min(trust_score, 95)  # Cap at 95 for preview
+    normalized['trustScore'] = min(trust_score, 100)  # Production scoring
     
     return normalized
 

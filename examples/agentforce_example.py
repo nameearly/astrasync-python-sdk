@@ -56,9 +56,9 @@ agentforce_json = {
 }
 
 result = register_agentforce(agentforce_json, email="admin@acmecorp.com")
-print(f"✅ Registered with AstraSync Developer Preview!")
+print(f"✅ Registered with AstraSync Production!")
 print(f"   AstraSync ID: {result['agentId']}")
-print(f"   Trust Score: {result['trustScore']} (preview calculation)")
+print(f"   Trust Score: {result['trustScore']} (production calculation)")
 print(f"   Note: This is a temporary ID. Create an AstraSync account at")
 print(f"         https://astrasync.ai to convert to permanent blockchain registration")
 print(f"   Verification URL: https://astrasync.ai/verify/{result['agentId']}")
@@ -78,7 +78,7 @@ deployment_result = {
 }
 
 result = register_agentforce_deployment(deployment_result, email="admin@acmecorp.com")
-print(f"✅ Deployment registered in AstraSync Developer Preview!")
+print(f"✅ Deployment registered in AstraSync Production!")
 print(f"   Salesforce ID: {deployment_result['id']}")
 print(f"   AstraSync ID: {result['agentId']}")
 print(f"   Status: {result['deployment_status']}")
@@ -141,14 +141,14 @@ banking_agent = {
 }
 
 result = register_agentforce(banking_agent, email="compliance@megabank.com")
-print(f"✅ Banking agent registered in Developer Preview!")
+print(f"✅ Banking agent registered in Production!")
 print(f"   AstraSync ID: {result['agentId']}")
 print(f"   Trust Score: {result['trustScore']}")
-print(f"   Preview Dashboard: https://astrasync.ai/preview/{result['agentId']}")
+print(f"   Preview Dashboard: https://astrasync.ai/production/{result['agentId']}")
 print(f"\n💡 When you create an AstraSync account, this agent will be")
 print(f"   permanently registered on blockchain with full audit trail!")
 
 print("\n" + "=" * 60)
 print("Integration complete! Your Agentforce agents now have")
-print("preview IDs that will convert to blockchain identity.")
+print("production IDs that will convert to blockchain identity.")
 print("=" * 60)
