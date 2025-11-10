@@ -3,34 +3,72 @@ AstraSync API client utilities
 """
 import requests
 import json
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 
-API_BASE_URL = "https://astrasync.ai/api/v1"
+API_BASE_URL = "https://astrasync.ai/api"
 
 
-def register_agent(agent_data: Dict[str, Any], email: str) -> Dict[str, Any]:
+def _get_auth_token(email: str, password: Optional[str] = None, api_key: Optional[str] = None) -> str:
+    """Get authentication token
+
+    Args:
+        email: Developer email
+        password: Account password (optional if api_key provided)
+        api_key: API key (optional if password provided)
+
+    Returns:
+        Authentication token
+    """
+    if api_key:
+        return api_key
+
+    if password:
+        endpoint = f"{API_BASE_URL}/auth/login"
+        payload = {"email": email, "password": password}
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "AstraSync-Python-SDK/1.0.0"
+        }
+
+        try:
+            response = requests.post(endpoint, json=payload, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            return data["data"]["token"]
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"Authentication failed: {str(e)}")
+
+    raise Exception("Authentication required: provide either api_key or password")
+
+
+def register_agent(agent_data: Dict[str, Any], email: str, password: Optional[str] = None, api_key: Optional[str] = None) -> Dict[str, Any]:
     """Register an agent with AstraSync API
-    
+
     Args:
         agent_data: Normalized agent data
         email: Developer email
-        
+        password: Account password (optional if api_key provided)
+        api_key: API key (optional if password provided)
+
     Returns:
         API response dict
     """
-    endpoint = f"{API_BASE_URL}/register"
-    
+    token = _get_auth_token(email, password, api_key)
+    endpoint = f"{API_BASE_URL}/agents"
+
     payload = {
-        "email": email,
-        "agent": agent_data
+        "name": agent_data.get("name"),
+        "description": agent_data.get("description"),
+        "owner": email
     }
-    
+
     headers = {
         "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}",
         "User-Agent": "AstraSync-Python-SDK/1.0.0"
     }
-    
+
     try:
         response = requests.post(endpoint, json=payload, headers=headers)
         response.raise_for_status()

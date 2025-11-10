@@ -16,7 +16,10 @@ pip install git+https://github.com/AstraSyncAI/astrasync-python-sdk.git
 from astrasync import AstraSync
 
 # Initialize client
-client = AstraSync(email="developer@example.com")
+client = AstraSync(
+    email="developer@example.com",
+    api_key="your-api-key"  # Get from https://astrasync.ai/settings/developer-tools
+)
 
 # Register an agent
 result = client.register({

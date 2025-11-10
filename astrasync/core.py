@@ -9,14 +9,21 @@ import json
 
 class AstraSync:
     """Main client for interacting with AstraSync API"""
-    
-    def __init__(self, email=None):
+
+    def __init__(self, email=None, api_key=None, password=None):
         """Initialize AstraSync client
-        
+
         Args:
             email: Developer email for registration
+            api_key: API key for authentication (recommended)
+            password: Account password for authentication (alternative to api_key)
         """
         self.email = email
+        self.api_key = api_key
+        self.password = password
+
+        if not api_key and not password:
+            raise ValueError("Authentication required: provide either api_key or password")
     
     def register(self, agent_data, owner=None):
         """Register an agent with AstraSync
@@ -50,9 +57,9 @@ class AstraSync:
                 # Default to email domain or 'Unknown'
                 normalized['owner'] = self.email.split('@')[0] if '@' in self.email else 'Unknown'
         
-        # Make API call and return response AS-IS
-        response = register_agent(normalized, self.email)
-        
+        # Make API call with authentication
+        response = register_agent(normalized, self.email, self.password, self.api_key)
+
         # Return the complete API response
         return response
     
