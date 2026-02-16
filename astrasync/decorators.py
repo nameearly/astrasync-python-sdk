@@ -34,6 +34,9 @@ def register(
         
         if auto_register:
             try:
+                # FIXME(逻辑): core.AstraSync.__init__ 当前强制要求 api_key/password。
+                # 这里仅传 email 会直接抛 ValueError，导致装饰器自动注册基本不可用。
+                # 建议：让装饰器支持传入 api_key/password；或调整 SDK 的鉴权要求。
                 client = AstraSync(email=email)
                 result = client.register(agent_data)
                 

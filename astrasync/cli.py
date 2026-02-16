@@ -31,9 +31,15 @@ def register(agent_file, email, output):
         ) as progress:
             task = progress.add_task("Loading agent file...", total=None)
             
+            # FIXME(逻辑): core.AstraSync.__init__ 当前强制要求 api_key/password。
+            # CLI 这里只传 email 会直接抛 ValueError，导致命令无法工作。
+            # 建议：为 CLI 增加 --api-key/--password 参数并传入；或调整 SDK 的鉴权要求。
             client = AstraSync(email=email)
             
             progress.update(task, description="Registering with AstraSync...")
+            # FIXME(逻辑): 这里传入的是 agent_file 路径字符串，不是解析后的 dict。
+            # normalize_agent_data() 会把字符串当成 unknown，生成 Unnamed/Unknown 默认值。
+            # 建议：先读取并解析文件内容（JSON/YAML 等）再传入 client.register()。
             result = client.register(agent_file)
             
             progress.update(task, description="Registration complete!")
@@ -61,6 +67,9 @@ def register(agent_file, email, output):
 @cli.command()
 def health():
     """Check AstraSync API health"""
+    # FIXME(逻辑): AstraSync() 当前构造需要 api_key/password，这里不传会直接抛 ValueError。
+    # 同时 core.AstraSync 并没有 api_client/api_url 这两个属性，下面会 AttributeError。
+    # 建议：实现真正的 api_client + health_check()；或 CLI 直接调用一个 utils/api.py 的 health_check()。
     client = AstraSync()
     try:
         with console.status("Checking API health..."):

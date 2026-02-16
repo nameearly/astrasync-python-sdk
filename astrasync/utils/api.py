@@ -37,6 +37,8 @@ def _get_auth_token(email: str, password: Optional[str] = None, api_key: Optiona
             data = response.json()
             return data["data"]["token"]
         except requests.exceptions.RequestException as e:
+            # NOTE(可维护性): 这里直接 raise Exception，项目里虽然定义了 AstraSyncError/APIError，
+            # 但 API 层没有使用它们，导致上层（例如 CLI 捕获 AstraSyncError）可能捕获不到。
             raise Exception(f"Authentication failed: {str(e)}")
 
     raise Exception("Authentication required: provide either api_key or password")
@@ -60,6 +62,8 @@ def register_agent(agent_data: Dict[str, Any], email: str, password: Optional[st
     payload = {
         "name": agent_data.get("name"),
         "description": agent_data.get("description"),
+        # FIXME(逻辑): 这里 owner 固定用 email，会忽略 agent_data 里 normalize/override 后的 owner。
+        # 建议："owner": agent_data.get("owner") or email
         "owner": email
     }
 
@@ -74,6 +78,7 @@ def register_agent(agent_data: Dict[str, Any], email: str, password: Optional[st
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
+        # NOTE(可维护性): 同上，这里直接抛 Exception 而不是 SDK 自定义异常（如 APIError）。
         raise Exception(f"Failed to register agent: {str(e)}")
 
 
@@ -97,4 +102,5 @@ def verify_agent(agent_id: str) -> Dict[str, Any]:
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
+        # NOTE(可维护性): 同上，建议抛 SDK 自定义异常并附带 status_code/response_body。
         raise Exception(f"Failed to verify agent: {str(e)}")

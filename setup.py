@@ -6,6 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="astrasyncai",
     version="1.0.0",
+    # NOTE(发布一致性): astrasync/__init__.py 里的 __version__ 当前为 0.2.1，且 utils/api.py 的
+    # User-Agent 也写死为 1.0.0。建议统一版本来源，避免 CLI/包版本/UA 不一致。
     author="AstraSync AI",
     author_email="developers@astrasync.ai",
     description="Universal AI agent registration for blockchain compliance",
